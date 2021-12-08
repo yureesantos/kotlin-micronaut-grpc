@@ -26,22 +26,22 @@ micronaut {
 }
 
 dependencies {
-    kapt("io.micronaut.data:micronaut-data-processor")
-    implementation("io.micronaut:micronaut-runtime")
-    implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
-    implementation("io.micronaut.grpc:micronaut-grpc-runtime")
-    implementation("io.micronaut.kotlin:micronaut-kotlin-runtime")
-    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
-    implementation("javax.annotation:javax.annotation-api")
+    kapt("io.micronaut.data:micronaut-data-processor:3.2.0")
+    implementation("io.micronaut:micronaut-runtime:3.2.0")
+    implementation("io.micronaut.data:micronaut-data-hibernate-jpa:3.2.0")
+    implementation("io.micronaut.grpc:micronaut-grpc-runtime:3.1.1")
+    implementation("io.micronaut.kotlin:micronaut-kotlin-runtime:3.0.0")
+    implementation("io.micronaut.sql:micronaut-jdbc-hikari:4.0.4")
+    implementation("javax.annotation:javax.annotation-api:1.3.2")
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
-    runtimeOnly("ch.qos.logback:logback-classic")
-    runtimeOnly("com.h2database:h2")
-    implementation("io.micronaut:micronaut-validation")
+    runtimeOnly("ch.qos.logback:logback-classic:1.2.7")
+    runtimeOnly("com.h2database:h2:2.0.202")
+    implementation("io.micronaut:micronaut-validation:3.2.0")
 
-    runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
+    runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.0")
 
-    testImplementation("io.micronaut:micronaut-http-client")
+    testImplementation("io.micronaut:micronaut-http-client:3.2.0")
 
 }
 
@@ -76,19 +76,29 @@ sourceSets {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:3.17.2"
-    }
-    plugins {
-        id("grpc") {
-            artifact = "io.grpc:protoc-gen-grpc-java:1.39.0"
-        }
-    }
-    generateProtoTasks {
-        ofSourceSet("main").forEach {
-            it.plugins {
-                // Apply the "grpc" plugin whose spec is defined above, without options.
-                id("grpc")
-            }
+        if (osdetector.os == "osx") {
+            artifact = "com.google.protobuf:protoc:3.14.0:osx-x86_64"
+        } else {
+            artifact = "com.google.protobuf:protoc:3.14.0"
         }
     }
 }
+
+//protobuf {
+//    protoc {
+//        artifact = "com.google.protobuf:protoc:3.14.0:osx-x86_64"
+//    }
+//    plugins {
+//        id("grpc") {
+//            artifact = "io.grpc:protoc-gen-grpc-java:1.39.0"
+//        }
+//    }
+//    generateProtoTasks {
+//        ofSourceSet("main").forEach {
+//            it.plugins {
+//                // Apply the "grpc" plugin whose spec is defined above, without options.
+//                id("grpc")
+//            }
+//        }
+//    }
+//}
