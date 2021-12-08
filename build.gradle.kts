@@ -83,22 +83,3 @@ protobuf {
         }
     }
 }
-
-//protobuf {
-//    protoc {
-//        artifact = "com.google.protobuf:protoc:3.14.0:osx-x86_64"
-//    }
-//    plugins {
-//        id("grpc") {
-//            artifact = "io.grpc:protoc-gen-grpc-java:1.39.0"
-//        }
-//    }
-//    generateProtoTasks {
-//        ofSourceSet("main").forEach {
-//            it.plugins {
-//                // Apply the "grpc" plugin whose spec is defined above, without options.
-//                id("grpc")
-//            }
-//        }
-//    }
-//}
